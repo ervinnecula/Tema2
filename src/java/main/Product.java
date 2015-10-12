@@ -17,14 +17,14 @@ import java.util.Date;
 public class Product implements Serializable{
     private String productName;
     private double price;
-    private int quantiy;
+    private double quantiy;
     private Date deliveryDate;
 
-    public void setQuantiy(int quantiy) {
+    public void setQuantiy(double quantiy) {
         this.quantiy = quantiy;
     }
 
-    public int getQuantiy() {
+    public double getQuantiy() {
         return quantiy;
     }
 

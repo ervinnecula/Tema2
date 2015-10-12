@@ -10,7 +10,7 @@
     </servlet>
     <servlet>
         <servlet-name>products</servlet-name>
-        <servlet-class>main.Products</servlet>
+        <servlet-class>main.Products</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>login</servlet-name>
@@ -22,7 +22,7 @@
     </servlet-mapping>
    <servlet-mapping>
        <servlet-name>products</servlet-name>
-       <url-pattern>/products</servlet-name>
+       <url-pattern>/products</url-pattern>
    </servlet-mapping>
     <session-config>
         <session-timeout>

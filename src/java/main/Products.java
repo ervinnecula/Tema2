@@ -7,11 +7,16 @@ package main;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -58,6 +63,10 @@ public class Products extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if(session.getAttribute("userName") == null || session.getAttribute("userPassword") == null){
+            response.sendRedirect("login.jsp");  
+       }
     }
 
     /**
@@ -71,7 +80,26 @@ public class Products extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Product p = new Product();
+        
+        String productName = request.getParameter("productName");
+        double price = Double.parseDouble(request.getParameter("price"));
+        double quantity = Double.parseDouble(request.getParameter("quantity"));
+        Date date = new Date();
+        
+        p.setProductName(productName);
+        p.setPrice(price);
+        p.setQuantiy(quantity);
+        Date today = new Date();
+        
+        /* --- generate random date --- */
+        Random r = new Random();
+        int i = r.nextInt(5) + 1;
+        Date deliveryDate = new Date(today.getTime() + (1000 * 60 * 60 * (24 * i)));
+        p.setDeliveryDate(deliveryDate);
+        
+        Database.addProductToDatabase(p);
+        
     }
 
     /**

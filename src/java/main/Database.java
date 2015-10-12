@@ -29,7 +29,7 @@ public class Database {
         return false;
     }
     
-    public void addProductToDatabase(Product product){
+    static public void addProductToDatabase(Product product){
         products.add(product);
     }
     

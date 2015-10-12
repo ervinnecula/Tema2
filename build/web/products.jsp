@@ -4,14 +4,11 @@
     Author     : Ervin
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="javax.servlet.http.HttpSession" %>
+<jsp:useBean id="product" class="main.Product" scope="page"/>
 <!DOCTYPE html>
- <%
-    if(session.getAttribute("userName") == null || session.getAttribute("userPassword") == null){
-        response.sendRedirect("login.jsp");  
-   }
-%>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -23,13 +20,13 @@
         
         <form method="POST" action="products">
             
-            Product name: <input type="text"/>
+            Product name: <input type="text" name="productName"/>
             <br>
             <br>
-            Price: <input type="text"/>
+            Price: <input type="text" name="price"/>
             <br>
             <br>
-            Quantity: <input type="text"/>
+            Quantity: <input type="text" name="quantity"/>
             <br>
             <br>
             <br>
