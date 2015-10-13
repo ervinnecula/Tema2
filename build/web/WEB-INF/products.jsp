@@ -32,5 +32,6 @@
             <br>
             <input type="submit">
         </form>
+        <a href="checkout">Go to checkout</a>
     </body>
 </html>

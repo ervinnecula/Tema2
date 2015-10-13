@@ -14,5 +14,6 @@
     <body>
         <h1>Error</h1>
         <p> The username/password you inserted is wrong </p>
+        <a href="login"> Try again </a>
     </body>
 </html>

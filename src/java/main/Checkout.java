@@ -1,29 +1,26 @@
+package main;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
-
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import main.Product;
 
 /**
  *
  * @author Ervin
  */
-@WebServlet(name = "Products", urlPatterns = {"/Products"})
-public class Products extends HttpServlet {
+public class Checkout extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +39,10 @@ public class Products extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Products</title>");            
+            out.println("<title>Servlet Checkout</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Products at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Checkout at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,13 +60,37 @@ public class Products extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         HttpSession session = request.getSession(false);
-        if(session.getAttribute("userName") == null || session.getAttribute("userPassword") == null){
-            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response); 
-       }
-        
-        else{
-            request.getRequestDispatcher("/WEB-INF/products.jsp").forward(request, response); 
+        if (session.getAttribute("userName") == null || session.getAttribute("userPassword") == null) {
+            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        } else {
+
+            double totalToPay = Product.getTotalValueOfProducts();
+            if (totalToPay != 0.0) {
+
+                /* --- generate random date --- */
+                Date today = new Date();
+                Random r = new Random();
+                int i = r.nextInt(5) + 1;
+
+                Date deliveryDate = new Date(today.getTime() + (1000 * 60 * 60 * (24 * i)));
+                request.setAttribute("deliveryDate", deliveryDate);
+
+                if (totalToPay > 5.0 && totalToPay < 100.0) {
+                    request.setAttribute("thankYouMessage", "You're a nice guy, but you should spend more");
+                } else if (totalToPay >= 100.0 && totalToPay < 1000.0) {
+                    request.setAttribute("thankYouMessage", "Niiiiiiiiiiice!");
+                } else if (totalToPay >= 1000.0) {
+                    request.setAttribute("thankYouMessage", "You are our favourite customer!!!!!!");
+                }
+            } else {
+                request.setAttribute("deliveryDate", "Nothing bought, so don't wait");
+                request.setAttribute("thankYouMessage", "Spend some money, you grumpy");
+            }
+            request.setAttribute("totalToPay", totalToPay);
+
+            request.getRequestDispatcher("/WEB-INF/checkout.jsp").forward(request, response);
         }
     }
 
@@ -84,22 +105,7 @@ public class Products extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        String productName = request.getParameter("productName");
-        double price = Double.parseDouble(request.getParameter("price"));
-        double quantity = Double.parseDouble(request.getParameter("quantity"));
-        Date date = new Date();
-        
-        Product p = new Product();
-        p.setProductName(productName);
-        p.setPrice(price);
-        p.setQuantiy(quantity);
-     
-        /* --add to products array -- */
-        Product.products.add(p);
-        
-        request.getRequestDispatcher("/WEB-INF/products.jsp").forward(request, response); 
+        processRequest(request, response);
     }
 
     /**

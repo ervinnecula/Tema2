@@ -2,6 +2,7 @@ package main;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
 /*
@@ -15,10 +16,11 @@ import java.util.Date;
  * @author Ervin
  */
 public class Product implements Serializable{
+    
+    public static ArrayList<Product> products = new ArrayList<Product>();
     private String productName;
     private double price;
     private double quantiy;
-    private Date deliveryDate;
 
     public void setQuantiy(double quantiy) {
         this.quantiy = quantiy;
@@ -43,13 +45,12 @@ public class Product implements Serializable{
     public double getPrice() {
         return price;
     }
-
-    public void setDeliveryDate(Date deliveryDate) {
-        this.deliveryDate = deliveryDate;
+    
+    static public double getTotalValueOfProducts(){
+        double totalValue = 0;
+        for(Product p: products){
+            totalValue += p.getPrice() * p.getQuantiy();
+        }
+        return totalValue;
     }
-
-    public Date getDeliveryDate() {
-        return deliveryDate;
-    }
-     
 }

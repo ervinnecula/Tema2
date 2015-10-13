@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Database {
     public static ArrayList<User> users = new ArrayList<User>();
-    public static ArrayList<Product> products = new ArrayList<Product>();
+
     
     static public void addUserToDatabase(User user){
         users.add(user);     
@@ -27,18 +27,6 @@ public class Database {
             }
         }
         return false;
-    }
-    
-    static public void addProductToDatabase(Product product){
-        products.add(product);
-    }
-    
-    public double getTotalValueOfProducts(ArrayList<Product> products){
-        double totalValue = 0;
-        for(Product p: products){
-            totalValue += p.getPrice();
-        }
-        return totalValue;
     }
     
     public void addDummyData(){

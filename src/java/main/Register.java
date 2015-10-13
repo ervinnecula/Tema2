@@ -61,7 +61,7 @@ public class Register extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/register.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
     }
 
     /**
@@ -90,11 +90,11 @@ public class Register extends HttpServlet {
         ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(remoteAddr, challenge, uresponse);
         
         if (reCaptchaResponse.isValid()) {
-          response.sendRedirect("login.jsp");
+          request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
           User u = new User(userName,userPassword);
           Database.addUserToDatabase(u);
         } else {
-          response.sendRedirect("register.jsp");
+          request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
         }
         
         

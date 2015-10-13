@@ -22,6 +22,7 @@ public class Login extends HttpServlet {
 
     Database db = new Database();
     int numberOfCalls = 0;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -60,12 +61,12 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if(numberOfCalls == 0){
-        Database db = new Database();
-        db.addDummyData();
+        if (numberOfCalls == 0) {
+            Database db = new Database();
+            db.addDummyData();
         }
-        numberOfCalls ++;
-        request.getRequestDispatcher("/login.jsp").forward(request, response);
+        numberOfCalls++;
+        request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
     /**
@@ -79,15 +80,14 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String userName = request.getParameter("userName");
         String userPassword = request.getParameter("userPassword");
         String rememberMe = request.getParameter("rememberMe");
-         
-        
-        boolean userExists = db.checkIfUserExists(new User(userName,userPassword));
-        
-        if(userExists){
+
+        boolean userExists = db.checkIfUserExists(new User(userName, userPassword));
+
+        if (userExists) {
             boolean value = false;
             if (rememberMe != null && rememberMe.equalsIgnoreCase("on")) {
                 value = true;
@@ -104,11 +104,10 @@ public class Login extends HttpServlet {
 
             HttpSession session = request.getSession();
             session.setAttribute("userName", userName);
-            session.setAttribute("userPassword",userPassword);
-            response.sendRedirect("products.jsp");
-        }
-        else{
-            response.sendRedirect("error.jsp");
+            session.setAttribute("userPassword", userPassword);
+            request.getRequestDispatcher("/WEB-INF/products.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("/WEB-INF/error.jsp").forward(request, response);
         }
 
     }
@@ -122,6 +121,5 @@ public class Login extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
 
 }

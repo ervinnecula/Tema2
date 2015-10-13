@@ -28,6 +28,10 @@
                  out.print(c.createRecaptchaHtml(null, null));
             %>
             <input type="submit">
-        <form>
+        </form>  
+            <br>
+            <br>
+            Go to 
+            <a href="login">Login</a>
     </body>
 </html>

@@ -55,7 +55,10 @@ if (cookies != null) {
             <br>
             <br>
             <input type="submit">
-        <form>
-            
+        </form>
+            <br>
+            <br>
+            Don't have an account?
+            <a href="register">Go to Register</a>
     </body>
 </html>
