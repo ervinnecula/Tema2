@@ -18,16 +18,25 @@ import java.util.Date;
 public class Product implements Serializable{
     
     public static ArrayList<Product> products = new ArrayList<Product>();
+    private String clientName;
     private String productName;
     private double price;
-    private double quantiy;
+    private double quantity;
 
-    public void setQuantiy(double quantiy) {
-        this.quantiy = quantiy;
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 
-    public double getQuantiy() {
-        return quantiy;
+    public String getClientName() {
+        return clientName;
+    }
+    
+    public void setQuantity(double quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getQuantity() {
+        return quantity;
     }
 
     public void setProductName(String productName) {
@@ -49,7 +58,7 @@ public class Product implements Serializable{
     static public double getTotalValueOfProducts(){
         double totalValue = 0;
         for(Product p: products){
-            totalValue += p.getPrice() * p.getQuantiy();
+            totalValue += p.getPrice() * p.getQuantity();
         }
         return totalValue;
     }

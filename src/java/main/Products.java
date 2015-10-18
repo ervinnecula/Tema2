@@ -69,6 +69,7 @@ public class Products extends HttpServlet {
        }
         
         else{
+            request.setAttribute("products", Product.products);
             request.getRequestDispatcher("/WEB-INF/products.jsp").forward(request, response); 
         }
     }
@@ -89,16 +90,16 @@ public class Products extends HttpServlet {
         String productName = request.getParameter("productName");
         double price = Double.parseDouble(request.getParameter("price"));
         double quantity = Double.parseDouble(request.getParameter("quantity"));
-        Date date = new Date();
         
         Product p = new Product();
         p.setProductName(productName);
         p.setPrice(price);
-        p.setQuantiy(quantity);
-     
+        p.setQuantity(quantity);
+        p.setClientName((String)request.getSession().getAttribute("userName"));
         /* --add to products array -- */
         Product.products.add(p);
         
+        request.setAttribute("products", Product.products);
         request.getRequestDispatcher("/WEB-INF/products.jsp").forward(request, response); 
     }
 

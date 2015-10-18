@@ -4,9 +4,13 @@
     Author     : Ervin
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="javax.servlet.http.HttpSession" %>
+<%@ page import="main.Product"%>
 <jsp:useBean id="product" class="main.Product" scope="page"/>
+
+
 <!DOCTYPE html>
 
 <html>
@@ -32,6 +36,27 @@
             <br>
             <input type="submit">
         </form>
-        <a href="checkout">Go to checkout</a>
+       
+        <hr>
+        
+        <h3> Your shopping cart </h3>
+        
+     <c:forEach items="${products}" var="item">
+         <c:if test="${item.clientName == sessionScope.userName}">
+            <p>Product Name <c:out value="${item.productName}"/> </p>
+            <p>Price <c:out value="${item.price}"/> </p> 
+            <p>Quantity <c:out value="${item.quantity}"/></p> 
+            <hr>
+         </c:if>
+        
+     </c:forEach>
+             
+         
+         <br>
+         <br>
+         
+          <a href="checkout">Go to checkout</a>
+        
+        
     </body>
 </html>
