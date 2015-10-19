@@ -48,7 +48,6 @@
             <p>Quantity <c:out value="${item.quantity}"/></p> 
             <hr>
          </c:if>
-        
      </c:forEach>
              
          

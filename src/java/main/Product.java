@@ -55,10 +55,11 @@ public class Product implements Serializable{
         return price;
     }
     
-    static public double getTotalValueOfProducts(){
+    static public double getTotalValueOfProducts(String userName){
         double totalValue = 0;
         for(Product p: products){
-            totalValue += p.getPrice() * p.getQuantity();
+            if(p.getClientName().equals(userName))
+             totalValue += p.getPrice() * p.getQuantity();
         }
         return totalValue;
     }

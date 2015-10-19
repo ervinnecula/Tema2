@@ -66,7 +66,7 @@ public class Checkout extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         } else {
 
-            double totalToPay = Product.getTotalValueOfProducts();
+            double totalToPay = Product.getTotalValueOfProducts((String)session.getAttribute("userName"));
             if (totalToPay != 0.0) {
 
                 /* --- generate random date --- */
