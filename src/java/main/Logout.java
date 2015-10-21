@@ -56,9 +56,19 @@ public class Logout extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {  
+        
         HttpSession session = request.getSession(false);
+        String userName = (String)session.getAttribute("userName");
+        
+        for(int i=0;i<Product.products.size();i++){
+            if(Product.products.get(i).getClientName().equals(userName)){
+                Product.products.remove(i);
+            }
+        }
         session.invalidate();
+        
+        
         response.sendRedirect("login");
     }
 

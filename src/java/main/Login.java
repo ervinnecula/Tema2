@@ -66,9 +66,33 @@ public class Login extends HttpServlet {
             db.addDummyData();
         }
         numberOfCalls++;
+        
+        Cookie[] cookies=request.getCookies();
+        boolean foundUser = false,foundPass = false;
+        if (cookies != null) {
+             for (Cookie cookie1 : cookies) {
+               if(cookie1.getName().equals("cookieLoginUser") )
+               {
+                   foundUser = true;
+               }
+
+               for(Cookie cookie2 : cookies){
+                   if(cookie2.getName().equals("cookieLoginPassword")){
+                       foundPass = true;
+                   }
+               }
+
+               if(foundUser && foundPass){
+                    request.getRequestDispatcher("/WEB-INF/products.jsp").forward(request, response);
+               }
+
+            }
+        }
+        
         request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
-
+    
+            
     /**
      * Handles the HTTP <code>POST</code> method.
      *

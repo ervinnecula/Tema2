@@ -40,7 +40,7 @@
         <hr>
         
         <h3> Your shopping cart </h3>
-        
+    
      <c:forEach items="${products}" var="item">
          <c:if test="${item.clientName == sessionScope.userName}">
             <p>Product Name <c:out value="${item.productName}"/> </p>

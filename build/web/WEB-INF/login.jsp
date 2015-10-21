@@ -8,33 +8,6 @@
 <%@page import="main.Database" %>
 <!DOCTYPE html>
 
-<%
-
-
-Cookie[] cookies=request.getCookies();
-String name="",pass="";
-boolean foundUser = false,foundPass = false;
-if (cookies != null) {
-     for (Cookie cookie1 : cookies) {
-       if(cookie1.getName().equals("cookieLoginUser") )
-       {
-           foundUser = true;
-       }
-       
-       for(Cookie cookie2 : cookies){
-           if(cookie2.getName().equals("cookieLoginPassword")){
-               foundPass = true;
-           }
-       }
-       
-       if(foundUser && foundPass){
-            pageContext.forward("products.jsp");
-       }
-               
-    }
-}
-%>
-
 <html>
     <head>
         <title>Login</title>

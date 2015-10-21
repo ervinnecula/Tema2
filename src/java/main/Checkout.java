@@ -89,7 +89,8 @@ public class Checkout extends HttpServlet {
                 request.setAttribute("thankYouMessage", "Spend some money, you grumpy");
             }
             request.setAttribute("totalToPay", totalToPay);
-
+            
+            
             request.getRequestDispatcher("/WEB-INF/checkout.jsp").forward(request, response);
         }
     }
